@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropay Merchant Dashboard</title>
+  <link rel="shortcut icon" href="assets/Img/Dropay.png" type="image/x-icon">
+  <link rel="stylesheet" href="merch.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+  <script type="module" type="text/javascript" src="merch.js"></script>
+</head>
+
+<body>
+    <div class="loadback" id="loadback">
+    <div id="loader"></div>
+    <h3 id="loadtxt">Loading...</h3>
+  </div>
+  <nav class="sidebar">
+  <h2 class="flexlogo"><img src="assets/Img/whitelogo.png" alt="Dropay">Dropay</h2>
+  <a class="sidebar-link" onclick="showPage('dashboard', this)"><span class="material-icons">dashboard</span>Dashboard Home</a>
+  <a class="sidebar-link" onclick="showPage('payment-review', this)"><span class="material-icons">receipt_long</span>Payment Review</a>
+  <a class="sidebar-link" onclick="showPage('wallet', this)"><span class="material-icons">account_balance_wallet</span>Wallet & Payouts</a>
+  <a class="sidebar-link" onclick="showPage('api', this)"><span class="material-icons">vpn_key</span>API Integration</a>
+  <a class="sidebar-link" onclick="showPage('store-settings', this)"><span class="material-icons">store</span>Store Settings</a>
+  <a class="sidebar-link" onclick="showPage('qr', this)"><span class="material-icons">qr_code</span>QR Code Manager</a>
+  <a class="sidebar-link" onclick="showPage('support', this)"><span class="material-icons">support_agent</span>Support & Help</a>
+  <a class="sidebar-link" onclick="showPage('security', this)"><span class="material-icons">security</span>Account & Security</a>
+  <a class="sidebar-link" onclick="showPage('about', this)"><span class="material-icons">info</span>About Dropay</a>
+</nav>
+
+  <main class="main-content">
+    <div id="dashboard" class="page active">
+      <h1>Dashboard Home</h1>
+      <div class="bscroll">
+        <div class="btn1">
+          <div class="material-icons">view_carousel</div><div class="txt">Overview</div>
+        </div>
+        <div class="btn1">
+          <div class="material-icons">attach_money</div><div class="txt">Transactions</div>
+        </div>
+        <div class="btn1">
+          <div class="material-icons">add</div><div class="txt">Generate QR</div>
+        </div>
+        <div class="btn1">
+          <div class="material-icons">notifications</div><div class="txt">Notifications</div>
+        </div>
+      </div>
+      <div class="dashboard-grid">
+  <div class="dlay">
+  <section id="kpi-widgets">
+  <div class="kpi-card">
+    <span class="material-icons kpi-icon">attach_money</span>
+    <div>
+      <h3>Total Revenue</h3>
+      <p>$42,000</p>
+    </div>
+  </div>
+
+  <div class="kpi-card">
+    <span class="material-icons kpi-icon">check_circle</span>
+    <div>
+      <h3>Successful Payments</h3>
+      <p>253</p>
+    </div>
+  </div>
+
+  <div class="kpi-card">
+    <span class="material-icons kpi-icon">error_outline</span>
+    <div>
+      <h3>Pending / Failed</h3>
+      <p>12 / 3</p>
+    </div>
+  </div>
+
+  <div class="kpi-card">
+    <span class="material-icons kpi-icon">today</span>
+    <div>
+      <h3>Transactions Today</h3>
+      <p>37</p>
+    </div>
+  </div>
+  </section>
+
+  <section id="transaction-chart">
+      <section class="chart-section sec">
+  <div class="chart-header">
+    <h2>Transaction Overview</h2>
+    <select id="timeframe" onchange="changeTimeframe(this.value)">
+      <option value="daily">Daily</option>
+      <option value="weekly">Weekly</option>
+      <option value="monthly" selected>Monthly</option>
+    </select>
+  </div>
+
+  <canvas id="transactionChart"></canvas>
+</section>
+  </section></div>
+
+  <section class="dlay" id="recent-transactions">
+    <section class="sec">
+  <div class="section-header">
+    <h3>Recent Transactions</h3>
+    <button class="view-all-btn">View All</button>
+  </div>
+  <table class="transactions-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Token</th>
+        <th>Customer</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2025-05-15</td>
+        <td>$120.00</td>
+        <td><span class="badge success">Success</span></td>
+        <td>USDT</td>
+        <td>Samuel V.</td>
+        <td><button class="details-btn">View</button></td>
+      </tr>
+      <tr>
+        <td>2025-05-15</td>
+        <td>$300.00</td>
+        <td><span class="badge pending">Pending</span></td>
+        <td>BTC</td>
+        <td>Jane A.</td>
+        <td><button class="details-btn">View</button></td>
+      </tr>
+      <tr>
+        <td>2025-05-14</td>
+        <td>$50.00</td>
+        <td><span class="badge failed">Failed</span></td>
+        <td>ETH</td>
+        <td>Alex O.</td>
+        <td><button class="details-btn">View</button></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+  </section>
+
+  <section class="dlay" id="qr-generator">
+    <section class="qr-section">
+  <h3>Generate Payment QR Code</h3>
+  <div class="qr-form">
+    <input type="number" id="qr-amount" placeholder="Enter amount (e.g. 100.00)" />
+    <input type="text" id="qr-purpose" placeholder="Enter purpose (e.g. T-shirt payment)" />
+    <button onclick="generateQR()">Generate QR</button>
+  </div>
+  <div class="qr-display" id="qr-display"></div>
+</section>
+
+  </section>
+
+  <section class="dlay" id="notifications">
+    <section class="notifications-section">
+  <h3>Notifications</h3>
+  <div class="notification-list">
+    <div class="notification success">
+      <span class="material-icons">check_circle</span>
+      <div>
+        <p><strong>System update:</strong> New payout feature enabled</p>
+        <small>2 hours ago</small>
+      </div>
+    </div>
+
+    <div class="notification warning">
+      <span class="material-icons">warning</span>
+      <div>
+        <p><strong>Pending payout:</strong> Wallet needs attention</p>
+        <small>5 hours ago</small>
+      </div>
+    </div>
+
+    <div class="notification info">
+      <span class="material-icons">info</span>
+      <div>
+        <p><strong>Heads up:</strong> API v1.2 will deprecate in 30 days</p>
+        <small>Yesterday</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </section>
+</div>
+
+    </div>
+
+    <div id="payment-review" class="page">
+      <h1>Payment Review</h1>
+      <div class="filter-controls">
+  <input type="date" id="filter-date" />
+  <input type="number" placeholder="Amount" id="filter-amount" />
+  <select id="filter-token">
+    <option value="">All Tokens</option>
+    <option value="sui">SUI</option>
+    <option value="usdt">USDT</option>
+    <option value="usdc">USDC</option>
+    <option value="wal">wal</option>
+  </select>
+  <button onclick="applyFilters()">Apply</button>
+  <button onclick="exportToCSV()">Export CSV</button>
+</div>
+
+<table class="transactions-table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Amount</th>
+      <th>Token</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody id="transaction-body">
+    <!-- JS will populate this -->
+  </tbody>
+</table>
+    </div>
+
+    <div id="wallet" class="page">
+      <h1>Wallet & Payouts</h1>
+      <section class="wallet-overview">
+  <div class="balance-card sec">
+    <h3>Total Balance</h3>
+    <p id="wallet-balance">$0.00</p>
+    <button onclick="initiateWithdrawal()">Withdraw</button>
+  </div>
+  <div class="bank-info sec">
+    <h4>Payout Method</h4>
+    <p>Bank: Access Bank</p>
+    <p>Account: 1234567890</p>
+    <p>Name: Victor Samuel</p>
+    <p>Wallet Address : 0xk03o3onf0fjtgjegtnr5n0j400230k0rk02k30</p>
+    <button onclick="editBank()">Edit</button>
+  </div>
+</section>
+
+<section class="payout-history">
+  <h3>Recent Payouts</h3>
+  <table class="payouts-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="payout-body">
+      <!-- Populated by JS -->
+    </tbody>
+  </table>
+</section>
+    </div>
+
+    <div id="api" class="page">
+      <h1>API Integration</h1>
+      <div class="api-section intro">
+  <h2>Welcome to Dropay API</h2>
+  <p>Use your API keys to integrate Dropay with your website or app. Make sure to keep your <strong>secret key</strong> confidential.</p>
+  <a href="#" class="btn-docs" target="_blank">📘 View API Documentation</a>
+</div>
+<div class="api-section keys">
+  <h3>Your API Keys</h3>
+  <div class="key-row">
+    <label>Public Key:</label>
+    <div class="key-box">
+      <input type="text" readonly value="pk_test_xxx123" id="publicKey">
+      <button class="sbtn" onclick="copyKey('publicKey')">Copy</button>
+    </div>
+  </div>
+
+  <div class="key-row">
+    <label>Secret Key:</label>
+    <div class="key-box">
+      <input type="password" readonly value="sk_test_abc456" id="secretKey">
+      <button class="sbtn" onclick="toggleKey('secretKey', this)">Show</button>
+      <button class="sbtn" onclick="copyKey('secretKey')">Copy</button>
+    </div>
+  </div>
+
+  <button class="btn-generate" onclick="generateNewKey()">🔁 Generate New API Key</button>
+</div>
+
+<div class="api-section webhook">
+  <h3>Webhook Configuration</h3>
+  <label for="webhookUrl">Your Webhook URL</label>
+  <input type="url" id="webhookUrl" placeholder="https://yourdomain.com/webhook">
+  <button onclick="saveWebhook()">💾 Save</button>
+
+  <p class="note">We'll send transaction updates and status changes to this URL in real time.</p>
+</div>
+
+<div class="api-section test-console">
+  <h3>Try API Endpoint</h3>
+  <label for="endpoint">Endpoint</label>
+  <input type="text" id="endpoint" value="/v1/data">
+
+  <label for="requestBody">JSON Body</label>
+  <textarea id="requestBody" rows="5">{
+  "sender": "221234567890",
+  "bank": "access_bank",
+  "desc": "purchase of hamburger, and pizza"
+}</textarea>
+
+  <button onclick="runTestCall()">🚀 Send Request</button>
+
+  <div class="api-response">
+    <h4>Response</h4>
+    <pre id="apiResponseOutput">Waiting...</pre>
+  </div>
+</div>
+
+<div class="api-section logs">
+  <h3>Recent API Calls</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Timestamp</th>
+        <th>Endpoint</th>
+        <th>Status</th>
+        <th>Message</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2025-05-15 11:21</td>
+        <td>/v1/data</td>
+        <td><span class="badge success">200 OK</span></td>
+        <td>Data top-up success</td>
+      </tr>
+      <tr>
+        <td>2025-05-14 09:02</td>
+        <td>/v1/wallet</td>
+        <td><span class="badge error">403 Forbidden</span></td>
+        <td>Invalid API key</td>
+      </tr>
+      <!-- More rows dynamically added -->
+    </tbody>
+  </table>
+</div>
+
+    </div>
+
+    <div id="store-settings" class="page">
+      <h1>Store Settings</h1>
+      <section class="store-settings">
+  <h2>Customize your look, unique for your customers...</h2>
+
+  <form id="storeSettingsForm" autocomplete="off" novalidate>
+    <label for="storeName">Store Name</label>
+    <input type="text" id="storeName" name="storeName" placeholder="Enter store name" required>
+<br>
+    <label for="storeLogo">Store Logo</label>
+    <div class="logo-upload-wrapper">
+      <input type="file" id="storeLogo" name="storeLogo" accept="image/*">
+      <div class="logo-preview" id="logoPreview">No logo selected</div>
+    </div>
+<br>
+    <label for="storePhone">Phone Number</label>
+    <input type="tel" id="storePhone" name="storePhone" placeholder="Enter phone number" pattern="[0-9]{10,15}" required>
+<br>
+    <label for="storeAbout">About Store</label>
+    <textarea id="storeAbout" name="storeAbout" rows="4" placeholder="Write something about your store"></textarea>
+<br>
+    <button type="submit" class="btn-submit">Save Settings</button>
+  </form>
+</section>
+
+    </div>
+
+    <div id="qr" class="page">
+      <h1>QR Code Manager</h1>
+      <h4>Still in development, stay tuned...</h4>
+    </div>
+
+    <div id="support" class="page">
+      <h1>Support & Help Center</h1>
+      <h4>We are currently working on robust features for this section</h4>
+    </div>
+
+    <div id="security" class="page">
+      <h1>Account & Security</h1>
+    </div>
+
+    <div id="about" class="page">
+      <h1>About Dropay</h1>
+      <div class="rtxt">Dropay is a modern, secure, and easy-to-use merchant payment platform designed to empower businesses of all sizes to accept payments seamlessly across Nigeria. Whether you're a small business owner, a freelancer, or a growing enterprise, Dropay gives you the tools to receive customer payments quickly and reliably without the usual technical headaches.
+ <br>At the core of Dropay is simplicity and speed. We eliminate the barriers that often come with traditional payment systems by offering a streamlined onboarding process, instant access to your merchant dashboard, and real-time transaction tracking. With Dropay, you can easily generate payment links, receive alerts on every payment, and manage all your earnings in one place.
+We built Dropay to support merchants in a rapidly evolving digital economy—where flexibility, transparency, and efficiency matter most. Our system is constantly evolving to support new features like payouts, QR payments, customer analytics, and integrations with other platforms to help your business grow.
+<p><b>Our mission</b> is to simplify the way Nigerian businesses get paid. <br>
+<b>Our vision</b> is to become the go-to payment tool for everyday merchants and digital entrepreneurs, offering both stability and innovation in one trusted platform.
+</p><br>
+Dropay is proudly built by <b>Team Zeus</b>—a bold, forward-thinking group of developers passionate about creating real solutions for real businesses. <br>
+<b>And this is just the beginning. We’re building something big—stay tuned.</b>
+</div>
+    </div>
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropay</title>
+ <link rel="stylesheet" type="text/css" href="ui.css"/>
+ <link rel="shortcut icon" href="assets/Img/Dropay.png" type="image/x-icon">
+ <script src="assets/Html/fb/firebase-app.js"></script>
+ <script src="assets/Html/fb/firebase-auth.js"></script>
+ <script src="assets/Html/fb/firebase-database.js"></script>
+ <script src="assets/Js/crypto-js.min.js" defer></script>
+ <script src="assets/Js/pay.js" defer></script>
+ <script src="assets/Js/jquery.min.js"></script>
+ <script src="assets/Js/qrcode.js"></script>
+ <script src="assets/Js/qrcode.min.js"></script>
+</head>
+<body onload="OnGen()" class="loginpage">
+    <div class="logcard yy">
+        <div class="sucosu">
+        <img src="assets/Img/whitelogo.png" alt="Dropay logo" class="whitelogo dsin">
+        <div class="htxt dsin compx">Please send your money to the address below to complete your purchase</div>
+        <div class="logcard qrcode">
+            <div id="qrcode">
+            </div>
+        </div>
+        <br>
+        <small>Scan to pay</small></div>
+        <div class="htxt dsin compx">You are to pay the sum of <b id="tsum">52</b> SUI (with gas fees included)</div>
+        <div class="jollof">
+        <label for="walla">Or copy the <b>payment address</b> below to pay in <b>SUI coins</b></label>
+        <div class="flex bp">
+        <div class="walla" id="walladd">---loading---</div>
+        <button class="btn-secondary wallabtn" id="copy"><div class="icon">content_copy</div><div class="txt">Copy</div></button></div>
+         <br>
+        <div class="htxt dsin ds2">This address is for the transaction only and expires in <b id="texpire">29:55</b></div>
+        <br>
+        <label for="confirmpay">Have you paid? - Click the button below</label>
+        <button class="btn-primary" type="button" id="confirmpay">Confirm payment</button>
+        <br>
+    </div>
+    </div>
+</body>
+</html>

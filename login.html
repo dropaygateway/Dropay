@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropay</title>
+ <link rel="stylesheet" type="text/css" href="ui.css"/>
+ <link rel="shortcut icon" href="assets/Img/Dropay.png" type="image/x-icon">
+ <script src="assets/Js/crypto-js.min.js" defer></script>
+ <script type="module" src="assets/Js/login.js" defer></script>
+</head>
+ <div class="loadback" id="loadback">
+    <div id="loader"></div>
+    <h3 id="loadtxt">Loading...</h3>
+  </div>
+<body class="loginpage" id="bxd">
+    <div class="glochild" id="glory">
+        <div class="circle dark" id="crd"></div>
+        <div class="circle white"></div>
+        <img src="assets/Img/darklogo.png" alt="Dropay" class="splogo">
+        <div class="appname">Dropay</div>
+    </div>
+    <div class="icon" id="dbl">arrow_back</div>
+    <div class="logcard" id="logcarda">
+        <div class="logform">
+            <div class="header">
+                <img src="assets/Img/Dropay.png" alt="Dropay" id="smg"/>
+                <div class="txt">Dropay</div>
+            </div><br>
+            <div id="title3"></div>
+            <form class="login" id="login">
+                <label for="login_email">Enter your email</label>
+                <br>
+                <input type="email" placeholder="Email-address" name="email" id="login_email" autocomplete="email" required>
+                <br><br>
+                <label for="login_password">Your account password</label>
+                <br>
+                <div class="flex bp password">
+                <input type="password" placeholder="Password" name="password" id="login_password" autocomplete="current-password" required>
+                <div class="icon" id="lvis">visibility</div></div>
+                <br><br>
+                <span class="forget" id="forgot">Forgot password?</span>
+                <br><br>
+                <button class="btn-primary" id="login_btn">
+                    <div class="icon">forward</div>
+                    <div class="text">Next</div>
+                </button>
+                <br>
+                <span>First time using the app?&nbsp;<span class="forget" id="signin_option">Create an account</span></span>
+            <h4>OR</h4>
+            <button class="btn-other">
+                <img src="assets/Img/google.png" alt="google">
+                <div class="text">Login with Google</div>
+            </button>
+            </form>
+        
+            <form class="signin" id="signin">
+                <label for="signin_email">Enter your email</label>
+                <br>
+                <input type="email" placeholder="Email-address" name="email" id="signin_email" autocomplete="email" required>
+                
+                <br><br>
+            
+                <label for="signin_password">Choose password</label>
+                <br>
+        <div class="flex bp password">
+                <input type="password" placeholder="Password" name="password" id="signin_password" required>
+         <div class="icon" id="svis">visibility</div></div>
+                <br><br>
+                <button class="btn-primary" id="signin_btn">
+                    <div class="icon">edit</div>
+                    <div class="text">Create Account</div>
+                </button>
+                <br>
+                <span>Already have an account?&nbsp;<span class="forget" id="login_option">Login</span></span>
+            <h4>OR</h4><br>
+            <button class="btn-other">
+                <img src="assets/Img/google.png" alt="google">
+                <div class="text">Sign In with Google</div>
+            </button>
+            </form>
+        
+            <form class="fgp" id="fgp">
+                <h4>Please enter the email address used for your account</h4>
+           <label for="fg_email">Enter your email</label>
+                   <br>
+                   <input type="email" placeholder="Email-address" name="email" id="fg_email" autocomplete="email">
+                   <br><br>
+           <button class="btn-primary" id="fg_send">
+                       <div class="icon">send</div>
+                       <div class="text">Submit</div>
+                   </button>
+                   <br><br>
+                   <div id="hig" style="display:none;">
+                   <h4 id="fg_msg">You will receive a link with the email address 
+                   you provided</h4>
+                   <ul>
+                       <li>
+                           Please click on the link to reset your password</li> 
+                       <li>
+                           Then enter a new strong password</li>
+                       <li>
+                           Your password should also be 
+                           <strong><big>easy to remember</big></strong></li>
+                       <li>
+                           After resetting your password, 
+                           click <strong><big>' Login '</big></strong>
+                       </li>
+                   </ul>
+                   <br><br>
+                   <div class="flex">
+           <button class="btn-primary" id="fg-l">
+                       <div class="icon">exit_to_app</div>
+                       <div class="text">Login</div>
+                   </button>
+           <button class="btn-secondary" id="fg_reset">
+                       <div class="icon">reply</div>
+                       <div class="text">Resend code</div>
+                   </button>
+                   </div>
+                   </div>
+                   <br>
+               </form>
+           <form class="verify" id="verify">
+                <h4>We have sent you an email to verify your account</h4>
+           <ul>How to verify your account
+             <li>Open your Mail app e.g GMAIL, Yahoo</li>
+             <li>Check for any new mail, labelled <strong>Dropay Ng</strong> and open it</li>
+             <li>Click on the link and open in a browser</li>
+             <li>Once you have been verified, come back to the app and click <strong>Verify me</strong></li>
+           </ul>
+                   <br><br>
+                   <div class="grid2">
+           <button class="btn-primary" id="vUser">
+                      <div class="icon">verified_user</div>
+                      <div class="text">Verify me</div>
+                   </button>
+           <button class="btn-secondary" id="rUser">
+                     <div class="icon">refresh</div>
+                      <div class="text">Try Again</div>
+                   </button>
+           </div>
+                   <br>
+                   <br>
+               </form>
+        </div>
+    </div>
+    <!-- others -->
+    <div class="alert simple" id="alertbox">
+        <h3 id="alert-title"></h3>
+        <div id="alert-body" class="alert-body"></div>
+        <button class="btn-primary" id="cancel">
+        <div class="icon">cancel</div>
+        <div class="text">OK</div>
+        </button>
+    </div>
+</body>
+</html>

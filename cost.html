@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropay</title>
+ <link rel="stylesheet" type="text/css" href="ui.css"/>
+ <link rel="shortcut icon" href="assets/Img/Dropay.png" type="image/x-icon">
+ <script src="assets/Html/fb/firebase-app.js"></script>
+ <script src="assets/Html/fb/firebase-auth.js"></script>
+ <script src="assets/Html/fb/firebase-database.js"></script>
+ <script src="assets/Js/crypto-js.min.js" defer></script>
+ <script type="module" src="assets/Js/cost.js"></script>
+ <script type="module" src="assets/Js/pay.js"></script>
+ <script src="assets/Js/jquery.min.js"></script>
+ <script src="assets/Js/qrcode.js"></script>
+ <script src="assets/Js/qrcode.min.js"></script>
+ <body class="glo">
+  <div class="loadback" id="result">
+    <div class="icon" id="dbl">cancel</div>
+    <div class="rsback good" id="rs"><div class="rs icon"></div></div>
+    <h3 id="rstitle"></h3>
+    <div class="txt" id="rsmsg"></div>
+    <div class="resops">
+      <div class="ops">
+        <div class="icon">share</div>
+        <div class="txt">Receipt</div>
+      </div>
+      <div class="ops">
+        <div class="icon">info</div>
+        <div class="txt">Report</div>
+      </div>
+      <div class="ops">
+        <div class="icon">repeat</div>
+        <div class="txt">Repeat</div>
+      </div>
+    </div>
+  </div>
+  <div class="loadback" id="loadback">
+    <div id="loader"></div>
+    <h3 id="loadtxt">Loading...</h3>
+  </div>
+    <div class="glochild" id="glory">
+        <div class="circle dark" id="crd"></div>
+        <div class="circle white"></div>
+        <img src="assets/Img/darklogo.png" alt="Dropay" class="splogo">
+        <div class="appname">Dropay</div>
+    </div>
+    <div class="itemlay" id="itemlay">
+      <div class="logcard yy">
+        <div class="ykz" id="yA">
+        <div class="ordersum">
+          <div class="icon">arrow_back</div>
+          <div class="content">
+            <div class="txt">Order Summary</div><div class="line"></div>
+          </div>
+        </div>
+        <div class="sucosu hix">
+          <div id="itemlist" class="itemlist">
+
+          </div>
+        </div>
+      </div>
+      <div class="ykz" id="yB">
+        <div class="sucosu">
+          <img src="assets/Img/whitelogo.png" alt="Dropay logo" class="whitelogo dsin">
+          <div class="htxt dsin compx">Please send your money to the address below to complete your purchase</div>
+          <div class="logcard qrcode">
+              <div id="qrcode">
+              </div>
+          </div>
+          <br>
+          <small>Scan to pay</small>
+        <div class="payprice">
+          <div class="dollar" id="dollp">$75</div> as <div class="sui" id="suip">30 SUI</div>
+        </div></div>
+          <div class="htxt dsin compx">You are to pay the sum of <b id="tsum">52</b> SUI (with gas fees included)</div>
+          <div class="jollof" id="j1">
+          <label for="walla">Or copy the <b>payment address</b> below to pay in <b>SUI coins</b></label>
+          <div class="flex bp">
+          <div class="walla" id="walladd">---loading---</div>
+          <button class="btn-secondary wallabtn" id="copy"><div class="icon">content_copy</div><div class="txt">Copy</div></button></div>
+           <br>
+          <div class="htxt dsin ds2">This address is for the transaction only and expires in <b id="texpire">29:55</b></div>
+          <br>
+          <label for="confirmpay">Have you paid? - Click the button below</label>
+          <button class="btn-primary" type="button" id="confirmpay">Confirm payment</button>
+          <br>
+      </div>
+      </div>
+        <div class="jollof" id="j2">
+          <div class="prices">
+            <div class="tos">
+              <div class="txt">Subtotal</div><div class="line"></div><div class="txt prds" id="sbprice">$1,435</div>
+            </div>
+            <div class="tos">
+              <div class="txt">Delivery</div><div class="line"></div><div class="txt prds" id="sbdel">$30</div>
+            </div>
+            <div class="tos">
+              <div class="txt">Discount (<b id="disp"></b>)</div><div class="line"></div><div class="txt prds" id="sbdis">$55</div>
+            </div>
+            <div class="tos Total">
+              <div class="txt">Total</div><div class="line"></div><div class="txt prds" id="sbTotal">$1400</div>
+            </div>
+          </div>
+          <br>
+          <button class="btn-primary" type="button" id="paybtn">
+            <div class="icon">attach_money</div>
+            <div class="txt">Pay</div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+     <!-- others -->
+    <div class="alert simple" id="alertbox">
+        <h3 id="alert-title"></h3>
+        <div id="alert-body" class="alert-body"></div>
+        <button class="btn-primary" id="cancel">
+        <div class="icon">cancel</div>
+        <div class="text">OK</div>
+        </button>
+    </div>
+ </body>
