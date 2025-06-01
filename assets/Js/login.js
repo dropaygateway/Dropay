@@ -110,10 +110,11 @@ function OnBegin(){wait("Loading, please wait...",true);
 	forgot.addEventListener('click', () => swap("reset"));
   login_btn.addEventListener('click',(ev)=>login_account(ev));
   signin_btn.addEventListener('click',(ev)=>create_account(ev));
+  fg_send.addEventListener('click',(ev)=>forgot_Password(ev));
+  rUser.addEventListener('click',(ev)=>verifyUser(ev));
+  vUser.addEventListener('click',(ev)=>tryAgain(ev));
+  fg_l.addEventListener('click',(ev)=>{ev.preventDefault();relog();});
   cancelBtn.onclick=dismiss;
-  rUser.onclick=verifyUser;
-  vUser.onclick=tryAgain;
-  fg_l.onclick=relog;
   wait("",false);
 }
 
@@ -256,7 +257,8 @@ function verifyEmail(user){
   });
 }
 
-function verifyUser(){
+function verifyUser(ev){
+  ev.preventDefault();
   const user = auth.currentUser;
   if (user && user.emailVerified) {
     window.location.href="merchant.html";
@@ -266,7 +268,8 @@ function verifyUser(){
   }
 }
 
-function tryAgain(){
+function tryAgain(ev){
+  ev.preventDefault();
 const user = auth.currentUser;
   if (user && !user.emailVerified) {
     verifyEmail(user);
@@ -276,35 +279,33 @@ const user = auth.currentUser;
   }
 }
 
-function forgot_Password(){
-  wait("Checking your email",true);
-    //check user inputs
-   const email=fg_email.value.trim();
-   const user = auth.currentUser;
-if (!email || !emailRegex.test(email)||!user) {
-  let issues = [];
+function forgot_Password(ev){
+  ev.preventDefault();
+  wait("Checking your email", true);
+
+  const email = fg_email.value.trim();
+
+  // Validate email only, no user object needed here
   if (!email || !emailRegex.test(email)) {
-    issues.push("<li>Enter a valid email address (e.g. example@gmail.com)</li>");
+    alert("Oops! Check your inputs:", `<ul><li>Enter a valid email address (e.g. example@gmail.com)</li></ul>`);
+    wait("", false);
+    return;
   }
-  if(!user)issues.push("<li>You may have to refresh this page</li>");
-  alert("Oops! Check your inputs:",`<ul>${issues.join("")}</ul>`);
-  wait("",false);
-  return;
-}
 
-sendPasswordResetEmail(user)
-.then(()=>{
-  alert("Password reset","A link to reset your password has been sent");
-  hig.style.display="block";
-  fg_reset.onclick=()=>{
-    hig.style.display="none";
-    forgot_Password();
-  }
-},
-(error)=>{
-  alert("Sorry, an error occured!",getErrorMsg(error.code));
-}).finally(()=>{
-  wait("",false);
-})
-
+  // Use Firebase Auth's sendPasswordResetEmail with email, NOT user object
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      alert("Password reset", "A link to reset your password has been sent to your email.");
+      hig.style.display = "block";
+      fg_reset.onclick = () => {
+        hig.style.display = "none";
+        forgot_Password(ev);
+      };
+    })
+    .catch((error) => {
+      alert("Sorry, an error occurred!", getErrorMsg(error.code));
+    })
+    .finally(() => {
+      wait("", false);
+    });
 }

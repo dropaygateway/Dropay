@@ -218,18 +218,6 @@ logoInput.addEventListener('change', () => {
   reader.readAsDataURL(file);
 });
 
-function wait(msg,bool){
-  if(bool){
-    loadtxt.innerHTML=msg;
-    loadtxt.style.animation="bounceIn 5s 5s ease-out infinite";
-    loader.style.animation="rota 1.25s .2s ease-in-out infinite";
-  } else{
-    loadtxt.innerHTML="";
-    loadtxt.style.animation="none";
-    loader.style.animation="none";
-  }
-  loadback.style.visibility=(bool)?"visible":"hidden";
-}
 
 function runTestCall(){
 wait("Sending request, please wait...",true);
@@ -274,9 +262,9 @@ async function defUser(){
 
       if (!userSnap.exists()) {
         await setDoc(userRef, defData);
-        alert("defU","Default user data created.");
+        alert("Welcome to Dropay!","Let's start something shall we?");
       } else {
-        alert("defUser","User data already exists.");
+        alert("User data",JSON.stringify(userSnap.data()));
       }
     } else {
       // Redirect to login if no user
